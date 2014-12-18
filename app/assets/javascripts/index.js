@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	var key = '123' //todo figure out a way to get this from ENV
+        var key = 'dde9adc3-4873-4b47-bf2a-49bbcb7de999'
 	var summonerName = 'harley'
 	var id
 

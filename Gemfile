@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
-#allows env files
-gem 'dotenv-rails', :groups => [:development, :test]
+group :development, :test do
+  # Allows env files
+  gem 'dotenv-rails'
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use sqlite3 as the database for Active Record
