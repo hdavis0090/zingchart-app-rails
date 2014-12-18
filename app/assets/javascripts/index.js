@@ -26,7 +26,7 @@ $(document).ready(function () {
 	});
 	
 	
-	$( "form" ).submit(function( event ) {
+	$( "#buttony" ).click(function( event ) {
 
 	  if ( $( "input:first" ).val() != null ) {
 		//
@@ -57,7 +57,5 @@ $(document).ready(function () {
 		return;
 	  }
 	 
-	  $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
-	  event.preventDefault();
 	});
   });
