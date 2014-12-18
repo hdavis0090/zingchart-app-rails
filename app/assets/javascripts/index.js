@@ -5,10 +5,10 @@ $(document).ready(function () {
 	var id = null
 
 	$( "#buttony" ).click(function( event ) {
+		summonerName = $( "input:first" ).val().toLowerCase();
+	  if ( summonerName != null ) {
 
-	  if ( $( "input:first" ).val() != null ) {
-
-			summonerName = $( "input:first" ).val()
+			
 			//call to get summoner ID
 			$.ajax({
 				url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=' + key,
@@ -25,7 +25,7 @@ $(document).ready(function () {
 							damage3 = data.games[3].stats.totalDamageDealt
 							damage4 = data.games[4].stats.totalDamageDealt
 							$( "span" ).text(damage0).show();
-							var num = $( "input:first" ).val()
+	
 							var myChart=
 								{
 									"graphset":[
