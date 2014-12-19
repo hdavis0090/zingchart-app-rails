@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 	$( "#buttony" ).click(function( event ) {
 		input = document.getElementById("summonerIn").value.toLowerCase();
-		summonerName = input.replace(/\s+/g, '');
+		summonerName = decodeURIComponent(input.replace(/\s+/g, ''));
 
 	  if ( summonerName != null ) {
 			//call to get summoner ID
@@ -24,7 +24,8 @@ $(document).ready(function () {
 							damage2 = data.games[2].stats.totalDamageDealt
 							damage3 = data.games[3].stats.totalDamageDealt
 							damage4 = data.games[4].stats.totalDamageDealt
-	
+			
+							$('.chartContainer span').text('');
 							var damageChart=
 								{
 									"graphset":[
@@ -65,7 +66,7 @@ $(document).ready(function () {
 				},
 				error: function(data) {
 					//alert('error');
-					$( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+					$( ".textbox span" ).text( "Invalid summoner name" ).show().fadeOut( 5000 );
 				},
 			});
     }
