@@ -13,6 +13,7 @@ $(document).ready(function() {
         url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=' + key,
         success: function(data, status) {
           id = data[summonerName].id
+          var summonerLevel = data[summonerName].summonerLevel
             //call to get match history
           $.ajax({
             url: 'https://na.api.pvp.net/api/lol/na/v1.3/game/by-summoner/' + id + '/recent?api_key=' + key,
@@ -22,6 +23,9 @@ $(document).ready(function() {
               damage2 = data.games[2].stats.totalDamageDealt
               damage3 = data.games[3].stats.totalDamageDealt
               damage4 = data.games[4].stats.totalDamageDealt
+              
+              //fill info
+              $('.infoContainer span').html("Summoner Name: " + input + "<br>Summoner Level: " + summonerLevel);
                 //empty chart div
               $('.chartContainer span').text('');
               //populate damage chart datat
