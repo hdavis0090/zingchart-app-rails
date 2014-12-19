@@ -5,6 +5,7 @@ $(document).ready(function () {
 	var id = null
 
 	$( "#buttony" ).click(function( event ) {
+		//format name
 		input = document.getElementById("summonerIn").value.toLowerCase();
 		summonerName = decodeURIComponent(input.replace(/\s+/g, ''));
 
@@ -24,8 +25,10 @@ $(document).ready(function () {
 							damage2 = data.games[2].stats.totalDamageDealt
 							damage3 = data.games[3].stats.totalDamageDealt
 							damage4 = data.games[4].stats.totalDamageDealt
-			
+							
+							//empty chart div
 							$('.chartContainer span').text('');
+							//populate damage chart datat
 							var damageChart=
 								{
 									"graphset":[
@@ -55,6 +58,7 @@ $(document).ready(function () {
 										}
 									]
 								}
+							//show chart
 							zingchart.render({
 								id:"damageChartDiv",
 								data:damageChart,
@@ -64,6 +68,7 @@ $(document).ready(function () {
 					  }
 					});
 				},
+				//display error message for invalid summoner names
 				error: function(data) {
 					//alert('error');
 					$( ".textbox span" ).text( "Invalid summoner name" ).show().fadeOut( 5000 );
