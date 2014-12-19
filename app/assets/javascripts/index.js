@@ -5,10 +5,10 @@ $(document).ready(function () {
 	var id = null
 
 	$( "#buttony" ).click(function( event ) {
-		summonerName = $( "input:first" ).val().toLowerCase();
-	  if ( summonerName != null ) {
+		input = document.getElementById("summonerIn").value.toLowerCase();
+		summonerName = input.replace(/\s+/g, '');
 
-			
+	  if ( summonerName != null ) {
 			//call to get summoner ID
 			$.ajax({
 				url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=' + key,
@@ -24,35 +24,51 @@ $(document).ready(function () {
 							damage2 = data.games[2].stats.totalDamageDealt
 							damage3 = data.games[3].stats.totalDamageDealt
 							damage4 = data.games[4].stats.totalDamageDealt
-							$( "span" ).text(damage0).show();
 	
-							var myChart=
+							var damageChart=
 								{
 									"graphset":[
 										{
 											"type":"bar",
+											"background-color":"#fff",
 											"title":{
-												"text":"Bar"
+												"text":"Total Damage Dealt",
+												"background-color":"#33446A"
 											},
+											"scale-x":{
+													"labels":["Game 1","Game 2","Game 3","Game 4","Game 5"]
+											},
+											"scale-y":{
+													"label":{
+													"text":"Damage Dealt"
+
+											}
+											},
+											"plotarea":{ "background-color":"#fff" },
 											"series":[
 												{
-													"values":[damage0, damage1, damage2, damage3, damage4]
+													"values":[damage0, damage1, damage2, damage3, damage4],
+													"background-color":"#33446A"
 												},
 											]
 										}
 									]
 								}
 							zingchart.render({
-								id:"myChartDiv",
-								data:myChart,
+								id:"damageChartDiv",
+								data:damageChart,
 								height:400,
 								width:"100%"
 							});
-							return;
 					  }
 					});
-				}
+				},
+				error: function(data) {
+					//alert('error');
+					$( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+				},
 			});
     }
 	});
 });
+
