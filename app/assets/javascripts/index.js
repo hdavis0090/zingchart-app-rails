@@ -10,10 +10,8 @@ $(document).ready(function() {
     if (summonerName != null) {
       //call to get summoner ID
       $.ajax({
-        //url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=' + key,
         url: '/apiCalls/id?summonerName=' + summonerName,
         success: function(data, status) {
-			console.log(data)
           id = data[summonerName].id
           var summonerLevel = data[summonerName].summonerLevel
             //call to get match history
