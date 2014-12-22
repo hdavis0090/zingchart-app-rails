@@ -1,22 +1,21 @@
 $(document).ready(function() {
-  var key = 'dde9adc3-4873-4b47-bf2a-49bbcb7de999'
-    //id 25028183
   var summonerName = null
-  var id = null
+  var summonerId = null
   $("#buttony").click(function(event) {
     //format name
-    input = document.getElementById("summonerIn").value.toLowerCase();
-    summonerName = decodeURIComponent(input.replace(/\s+/g, ''));
+    input = document.getElementById("summonerIn").value;
+    summonerName = decodeURIComponent(input.replace(/\s+/g, '')).toLowerCase();
     if (summonerName != null) {
       //call to get summoner ID
       $.ajax({
         url: '/apiCalls/id?summonerName=' + summonerName,
         success: function(data, status) {
-          id = data[summonerName].id
+          summonerId = data[summonerName].id
           var summonerLevel = data[summonerName].summonerLevel
-            //call to get match history
+          
+          //call to get match history
           $.ajax({
-            url: 'https://na.api.pvp.net/api/lol/na/v1.3/game/by-summoner/' + id + '/recent?api_key=' + key,
+            url: '/apiCalls/matches?summonerId=' + summonerId,
             success: function(data, status) {
               damage0 = data.games[0].stats.totalDamageDealt
               damage1 = data.games[1].stats.totalDamageDealt
