@@ -1,14 +1,15 @@
 $(document).ready(function() {
-  
   //hide error
   $(".alert").css("opacity", "0");
   
+  
+  //challenger dropbox logic
   $("#challengerDropdown li a").click(function(event) {
 	rawSummonerName = this.text;
 	renderChart(rawSummonerName);
   })
 
-	  
+  //submit name logic
   $("#buttony").click(function(event) {
     //format name
     rawSummonerName = document.getElementById("summonerIn").value;
@@ -16,6 +17,8 @@ $(document).ready(function() {
   });
 });
 
+
+//renders the chart with the given summoner name
 function renderChart(rawSummonerName)
 {
   summonerName = decodeURIComponent(rawSummonerName.replace(/\s+/g, '')).toLowerCase();
