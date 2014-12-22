@@ -27,9 +27,15 @@
     </div>
 
     <div class="textbox">
-      <input id="summonerIn" type="text"> <input id="buttony" type="submit" value="submit"> <span style="color:#fff"></span>
+      <input id="summonerIn" type="text"> 
+      <button type="button" id="buttony" class="btn btn-default" aria-label="Left Align">Submit</button>
+      
     </div>
-
+		<div class="alert alert-danger" id="alert" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  <span class="sr-only">Error:</span>
+		  Enter a valid Summoner ID
+	</div>
     <div class="chartContainer">
       <span>Your chart will load here</span>
       <div id="damageChartDiv"></div>

@@ -1,6 +1,9 @@
 $(document).ready(function() {
   var summonerName = null
   var summonerId = null
+  
+  //hide error
+  $(".alert").css("opacity", "0")
   $("#buttony").click(function(event) {
     //format name
     input = document.getElementById("summonerIn").value;
@@ -68,7 +71,7 @@ $(document).ready(function() {
         //display error message for invalid summoner names
         error: function(data) {
           //alert('error');
-          $(".textbox span").text("Invalid summoner name").show().fadeOut(5000);
+          $("#alert").css('opacity', '1').fadeTo(5000, 0);
         },
       });
     }
