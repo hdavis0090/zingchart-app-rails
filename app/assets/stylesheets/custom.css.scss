@@ -12,9 +12,6 @@ ul.custom a:hover {
   color: #33446A
 }
 
-.logo {
-}
-
 body {
     background-color: #EDF5FA;
 		font-family: Georgia, serif;
@@ -32,7 +29,7 @@ body {
   background-size:cover;
 }
 
-div.one {  
+.one {  
 	padding-left: 30px;
 	padding-top: 10px;
 	padding-bottom:10px;
@@ -41,7 +38,7 @@ div.one {
 	font-size:medium;
 } 
 
-div.textbox {  
+.textbox {  
 	padding-left: 30px;
 	padding-top: 10px;
 	padding-bottom:10px;
@@ -49,6 +46,8 @@ div.textbox {
 	font-size:medium;
 }
 
+.div bdropdown{
+}
 .chartContainer {
 	width:60%;
 	height: 400px;
@@ -74,6 +73,10 @@ div.textbox {
 	padding:10px;
 }
 
+.drop {
+	margin-right:20px;
+	float:right;
+}
 
 #footer {
 	position:relative;

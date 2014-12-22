@@ -3,7 +3,13 @@ $(document).ready(function() {
   var summonerId = null
   
   //hide error
-  $(".alert").css("opacity", "0")
+  $(".alert").css("opacity", "0");
+  
+    $("#challengerDropdown li a").click(function(event) {
+	  var choice = this.text;
+    })
+
+	  
   $("#buttony").click(function(event) {
     //format name
     input = document.getElementById("summonerIn").value;
@@ -30,7 +36,7 @@ $(document).ready(function() {
               $('.infoContainer span').html("Summoner Name: " + input + "<br>Summoner Level: " + summonerLevel);
                 //empty chart div
               $('.chartContainer span').text('');
-              //populate damage chart datat
+              //populate damage chart data
               var damageChart = {
                   "graphset": [{
                     "type": "bar",
@@ -77,3 +83,4 @@ $(document).ready(function() {
     }
   });
 });
+
