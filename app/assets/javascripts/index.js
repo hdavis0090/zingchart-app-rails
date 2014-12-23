@@ -3,6 +3,16 @@
 $(document).ready(function() {
   //hide error
   $(".alert").css("opacity", "0");
+  
+ /** $.ajax({
+	url: '/apiCalls/challengers',
+	success: function(data, status) {
+	  //fill dropdown
+	  $("#challengerDropdown li a").each(function(index,value) {
+		  $(this).text(data.entries[index].playerOrTeamName);
+	  });
+    }
+  });**/
   var $btn = $("#buttony")
   //challenger dropbox logic
   $("#challengerDropdown li a").click(function(event) {
