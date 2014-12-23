@@ -1,8 +1,9 @@
+
+
 $(document).ready(function() {
   //hide error
   $(".alert").css("opacity", "0");
-  
-  
+  var $btn = $("#buttony")
   //challenger dropbox logic
   $("#challengerDropdown li a").click(function(event) {
 	rawSummonerName = this.text;
@@ -12,8 +13,13 @@ $(document).ready(function() {
   //submit name logic
   $("#buttony").click(function(event) {
     //format name
+    $btn.button('loading');
     rawSummonerName = document.getElementById("summonerIn").value;
     renderChart(rawSummonerName);
+  });
+  
+  $( document ).ajaxStop(function() {
+  	  $btn.button('reset')
   });
 });
 
@@ -80,6 +86,7 @@ function renderChart(rawSummonerName)
 		  });
 		}
 	  });
+
 	},
 	//display error message for invalid summoner names
 	error: function(data) {
@@ -87,5 +94,6 @@ function renderChart(rawSummonerName)
 	  $("#alert").css('opacity', '1').fadeTo(5000, 0);
 	},
   });
+  
  }
  
