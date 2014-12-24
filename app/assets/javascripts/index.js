@@ -50,12 +50,12 @@ function renderChart(rawSummonerName)
 	  $.ajax({
 		url: '/apiCalls/matches?summonerId=' + summonerId,
 		success: function(data, status) {
-		  damage0 = data.games[0].stats.totalDamageDealt
-		  damage1 = data.games[1].stats.totalDamageDealt
-		  damage2 = data.games[2].stats.totalDamageDealt
-		  damage3 = data.games[3].stats.totalDamageDealt
-		  damage4 = data.games[4].stats.totalDamageDealt
 		  
+		  var damage = [];
+		  for(i=0; i<10; i++) {
+			  damage.push(data.games[i].stats.totalDamageDealt);
+		  }
+	  
 		  //fill info
 		  $('.infoContainer span').html("Summoner Name: " + rawSummonerName + 
 		  "<br>Summoner Level: " + summonerLevel + 
@@ -72,9 +72,6 @@ function renderChart(rawSummonerName)
 				  "text": "Total Damage Dealt",
 				  "background-color": "#33446A"
 				},
-				"scale-x": {
-				  "labels": ["Game 1", "Game 2", "Game 3", "Game 4", "Game 5"]
-				},
 				"scale-y": {
 				  "label": {
 					"text": "Damage Dealt"
@@ -84,9 +81,7 @@ function renderChart(rawSummonerName)
 				  "background-color": "#fff"
 				},
 				"series": [{
-				  "values": [damage0, damage1,
-					damage2, damage3, damage4
-				  ],
+				  "values": damage,
 				  "background-color": "#33446A"
 				}, ]
 			  }]
