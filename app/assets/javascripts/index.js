@@ -44,6 +44,7 @@ function renderChart(rawSummonerName)
 	success: function(data, status) {
 	  summonerId = data[summonerName].id
 	  var summonerLevel = data[summonerName].summonerLevel
+	  var profileIconId = data[summonerName].profileIconId
 	  
 	  //call to get match history
 	  $.ajax({
@@ -56,7 +57,10 @@ function renderChart(rawSummonerName)
 		  damage4 = data.games[4].stats.totalDamageDealt
 		  
 		  //fill info
-		  $('.infoContainer span').html("Summoner Name: " + rawSummonerName + "<br>Summoner Level: " + summonerLevel);
+		  $('.infoContainer span').html("Summoner Name: " + rawSummonerName + 
+		  "<br>Summoner Level: " + summonerLevel + 
+		  "<br>" + "<img src=\"http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + 
+		  profileIconId +".png\">" );
 			//empty chart div
 		  $('.chartContainer span').text('');
 		  //populate damage chart data
