@@ -4,6 +4,8 @@ $(document).ready(function() {
   //hide error
   $(".alert").css("opacity", "0");
   
+  var rawSummonerName = '';
+  
  /** $.ajax({
 	url: '/apiCalls/challengers',
 	success: function(data, status) {
@@ -71,6 +73,9 @@ function renderChart(rawSummonerName)
 				"title": {
 				  "text": "Total Damage Dealt",
 				  "background-color": "#33446A"
+				},
+				"scale-x": {
+					"values":"1:10:1"
 				},
 				"scale-y": {
 				  "label": {
