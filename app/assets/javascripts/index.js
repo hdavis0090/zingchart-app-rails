@@ -3,6 +3,8 @@
 $(document).ready(function() {
   //hide error
   $(".alert").css("opacity", "0");
+  $('#homeTab a[href="#home"]').tab('show');
+  $('#game1 a[href="#game1"]').tab('show');
   
   var rawSummonerName = '';
   
@@ -54,10 +56,11 @@ function renderChart(rawSummonerName)
 		success: function(data, status) {
 		  
 		  var damage = [];
+		  var magicDamage = [];
 		  for(i=0; i<10; i++) {
-			  damage.push(data.games[i].stats.totalDamageDealt);
+			  damage.push(data.games[i].stats.totalDamageDealtToChampions);
 		  }
-	  
+		  var detailChart1 = createDetailChart([1,2,3]);
 		  //fill info
 		  $('.infoContainer span').html("Summoner Name: " + rawSummonerName + 
 		  "<br>Summoner Level: " + summonerLevel + 
@@ -98,6 +101,12 @@ function renderChart(rawSummonerName)
 			height: 400,
 			width: "100%"
 		  });
+		  zingchart.render({
+			id: "detailsChart1",
+			data: detailChart1,
+			height: 400,
+			width: "100%"
+		  });
 		}
 	  });
 
@@ -110,4 +119,35 @@ function renderChart(rawSummonerName)
   });
   
  }
+ 
+ function createDetailChart(data)
+ {
+	  var chart = {
+	  "graphset": [{
+		"type": "bar",
+		"background-color": "#fff",
+		"title": {
+		  "text": "Total Damage Dealt",
+		  "background-color": "#33446A"
+		},
+		"scale-x": {
+			"values":"1:10:1"
+		},
+		"scale-y": {
+		  "label": {
+			"text": "Damage Dealt"
+		  }
+		},
+		"plotarea": {
+		  "background-color": "#fff"
+		},
+		"series": [{
+		  "values": data,
+		  "background-color": "#33446A"
+		}, ]
+	  }]
+	}
+	return chart;
+}
+	
  

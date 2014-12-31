@@ -1,66 +1,93 @@
-<div id="content">
-    <header>
-    <!-- navbar -->
-      <nav>
-        <ul class="nav nav-pills custom">
-          <li>
-            <a href="http://www.zingchart.com/">Zing Charts</a>
-          </li>
+<header>
+	<!-- navbar -->
+	<nav>
+		<ul class="nav nav-pills custom">
+			<li>
+				<a href="http://www.zingchart.com/">Zing Charts</a>
+			</li>
 
-          <li>
-            <a href="https://developer.riotgames.com/">Riot API</a>
-          </li>
+			<li>
+				<a href="https://developer.riotgames.com/">Riot API</a>
+			</li>
 
-          <li>
-            <a href="https://github.com/hdavis0090">My Github</a>
-          </li>
-           <li>
-            <a href="https://github.com/hdavis0090/zingchart-app-rails">Source</a>
-          </li>
-        </ul>
-      </nav>
+			<li>
+				<a href="https://github.com/hdavis0090">My Github</a>
+			</li>
 
+			<li>
+				<a href="https://github.com/hdavis0090/zingchart-app-rails">Source</a>
+			</li>
+		</ul>
+	</nav>
+	
 	<!-- freljord image splash -->
-    <div class="wide"></div>
-    
-    </header>
+	<div class="wide"></div>
+</header>
 
-	<!--directions for user -->
-    <div class="one">
-      This is a tool for checking how much damage a player has done in their recent games of League of Legends. Input your summoner name below to generate a damage chart.
-    </div>
+<!--directions for user -->
+<div class="one">
+	This is a tool for checking how much damage a player has done in their recent games of
+	League of Legends. Input your summoner name below to generate a damage chart.
+</div>
 
+<div id="content">
 	<!-- inputs -->
-    <div class="textbox dropdown">
-      <input id="summonerIn" type="text"> 
-      <button type="button" id="buttony" class="btn btn-info" autocomplete="off" data-loading-text="Loading...">Submit</button>
-	  <div class="drop">
-	    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-	  	  Summoner IDs
-		  <span class="caret"></span>
-	    </button>
-	    <ul class="dropdown-menu dropdown-menu-right" id="challengerDropdown" role="menu" aria-labelledby="dropdownMenu1">
-		  <li id="chal1"><a role="menuitem">Pobelter</a></li>
-		  <li id="chal2"><a role="menuitem">Doublelift</a></li>
-		  <li id="chal1"><a role="menuitem">Wildturtle</a></li>
-		  <li><a role="menuitem">C9 Meteos</a></li>
-		  <li><a role="menuitem">Link</a></li>
-	    </ul>
-	  </div>
-    </div>
-    <!--errors-->
-		<div class="alert alert-danger" id="alert" role="alert">
-		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-		  <span class="sr-only">Error:</span>
-		  Enter a valid Summoner ID
+	<div class="textbox dropdown">
+		<input id="summonerIn" type="text"> <button class="btn btn-info" data-loading-text=
+		"Loading..." id="buttony" type="button">Submit</button>
+
+		<div class="drop">
+			<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" id=
+			"dropdownMenu1" type="button">Summoner IDs <span class="caret"></span></button>
+
+			<ul class="dropdown-menu dropdown-menu-right" id="challengerDropdown">
+				<li id="chal1">
+					<a>Pobelter</a>
+				</li>
+
+				<li id="chal2">
+					<a>Doublelift</a>
+				</li>
+
+				<li id="chal1">
+					<a>Wildturtle</a>
+				</li>
+
+				<li>
+					<a>C9 Meteos</a>
+				</li>
+
+				<li>
+					<a>Link</a>
+				</li>
+			</ul>
 		</div>
+	</div>
+	<!--errors-->
+	<div class="alert alert-danger" id="alert">
+		<span class="glyphicon glyphicon-exclamation-sign"></span> <span class=
+		"sr-only">Error:</span> Enter a valid Summoner ID
+	</div>
 	
 	<!-- returned information display area -->
-    <div class="chartContainer">
-      <span>Your chart will load here</span>
-      <div id="damageChartDiv"></div>
-    </div>
-    <div class="infoContainer">
+
+	<div class="chartContainer">
+		  <ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a href="#home" role="tab" data-toggle="tab">Summary</a></li>
+			<li ><a href="#game1" role="tab" data-toggle="tab">Game 1</a></li>
+		  </ul>
+		  
+		<span>Your chart will load here</span>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade in active" id="home">
+				<div id="damageChartDiv"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="game1">
+				<div id="detailsChart1"></div>
+			</div>
+	</div>
+
+	<div class="infoContainer">
 		<span></span>
-    </div>
+	</div>
 </div>
