@@ -56,11 +56,28 @@ function renderChart(rawSummonerName)
 		success: function(data, status) {
 		  
 		  var damage = [];
-		  var magicDamage = [];
+		  var chartData = [];
+		  var championNames = [];
+		  
+		  //total damage, physical damage, magic damage, true damage
+		  var magicDamage = []
 		  for(i=0; i<10; i++) {
+			  chartData[i] = [];
 			  damage.push(data.games[i].stats.totalDamageDealtToChampions);
+			  chartData[i][0] = data.games[i].stats.totalDamageDealtToChampions;
+			  chartData[i][1] = data.games[i].stats.physicalDamageDealtToChampions;
+			  chartData[i][2] = data.games[i].stats.magicDamageDealtToChampions;
+			  chartData[i][3] = data.games[i].stats.trueDamageDealtToChampions
 		  }
-		  var detailChart1 = createDetailChart([1,2,3]);
+		  var detailChart1 = createDetailChart(chartData[0]);
+		  
+		  zingchart.render({
+			id: "detailsChart1",
+			data: detailChart1,
+			height: 400,
+			width: "100%"
+		  });
+		  
 		  //fill info
 		  $('.infoContainer span').html("Summoner Name: " + rawSummonerName + 
 		  "<br>Summoner Level: " + summonerLevel + 
@@ -101,12 +118,6 @@ function renderChart(rawSummonerName)
 			height: 400,
 			width: "100%"
 		  });
-		  zingchart.render({
-			id: "detailsChart1",
-			data: detailChart1,
-			height: 400,
-			width: "100%"
-		  });
 		}
 	  });
 
@@ -129,9 +140,6 @@ function renderChart(rawSummonerName)
 		"title": {
 		  "text": "Total Damage Dealt",
 		  "background-color": "#33446A"
-		},
-		"scale-x": {
-			"values":"1:10:1"
 		},
 		"scale-y": {
 		  "label": {
