@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/apiCalls/id' => 'api_calls#getSummonerId'
   get 'apiCalls/matches' => 'api_calls#getMatchHistory'
   get '/apiCalls/challengers' =>'api_calls#getChallengers'
+  get '/apiCalls/version' =>'api_calls#getVersion'
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

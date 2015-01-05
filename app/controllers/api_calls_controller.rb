@@ -17,6 +17,11 @@ class ApiCallsController < ApplicationController
 		apiCall(url)
 	end
 	
+	def getVersion
+		url = "https://na.api.pvp.net/api/lol/static-data/na/v1.2/versions?api_key=#{ENV['KEY']}"
+		apiCall(url)
+	end
+	
 	private
 	
 	def apiCall(url)
