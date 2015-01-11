@@ -1,5 +1,5 @@
 
-
+var champNames = new Array(10);
 $(document).ready(function() {
   //hide error
   $(".alert").css("opacity", "0");
@@ -8,21 +8,13 @@ $(document).ready(function() {
   
   var rawSummonerName = '';
   
- /** $.ajax({
-	url: '/apiCalls/challengers',
-	success: function(data, status) {
-	  //fill dropdown
-	  $("#challengerDropdown li a").each(function(index,value) {
-		  $(this).text(data.entries[index].playerOrTeamName);
-	  });
-    }
-  });**/
+  
   var $btn = $("#buttony")
   //challenger dropbox logic
   $("#challengerDropdown li a").click(function(event) {
 	rawSummonerName = this.text;
 	renderChart(rawSummonerName);
-  })
+  });
 
   //submit name logic
   $("#buttony").click(function(event) {
@@ -34,12 +26,23 @@ $(document).ready(function() {
   $( document ).ajaxStop(function() {
   	  $btn.button('reset')
   });
+  
+  $("#navTabs").children().click(function(event) {
+	  index = $(this).index();
+	  if(index == 0) {
+		$(".matchDetails").text('');
+	  } else {
+	    $(".matchDetails").text(champNames[index - 1]);
+	  }
+  });
+	  
 });
 
 
 //renders the chart with the given summoner name
 function renderChart(rawSummonerName)
 {
+  //format name
   summonerName = decodeURIComponent(rawSummonerName.replace(/\s+/g, '')).toLowerCase();
   //call to get summoner ID
   $.ajax({ 
@@ -48,85 +51,7 @@ function renderChart(rawSummonerName)
 	  summonerId = data[summonerName].id
 	  var summonerLevel = data[summonerName].summonerLevel
 	  var profileIconId = data[summonerName].profileIconId
-	  
-	  //call to get match history
-	  $.ajax({
-		url: '/apiCalls/matches?summonerId=' + summonerId,
-		success: function(data, status) {
-		  //on success, fill in charts
-		  var damage = [];
-		  var chartData = [];
-		  var championNames = [];
-		  var detailCharts = [];
-		  
-		  //total damage, physical damage, magic damage, true damage
-		  var magicDamage = []
-		  for(i=0; i<10; i++) {
-			  chartData[i] = [];
-			  damage.push(data.games[i].stats.totalDamageDealtToChampions);
-			  chartData[i][0] = data.games[i].stats.totalDamageDealtToChampions;
-			  chartData[i][1] = data.games[i].stats.physicalDamageDealtToChampions;
-			  chartData[i][2] = data.games[i].stats.magicDamageDealtToChampions;
-			  chartData[i][3] = data.games[i].stats.trueDamageDealtToChampions;
-			  detailCharts[i] = createDetailChart(chartData[i]);
-		  }
-		 
-		  
-		  $("#matchTabs").children(".tab-pane").each(function(index,value) {
-			var currentDiv = this.firstElementChild.id
-			if(index != 0) {
-				zingchart.render({
-					id: currentDiv,
-					data: detailCharts[index-1],
-					height: 400,
-					width: "100%"
-				  });
-				 }
-	      });
-
-		  //fill info
-		  $('.infoContainer span').html("Summoner Name: " + rawSummonerName + 
-		  "<br>Summoner Level: " + summonerLevel + 
-		  "<br>" + "<img src=\"http://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + 
-		  profileIconId +".png\">" );
-			//empty chart div
-		  $('.chartContainer span').text('');
-		  //populate damage chart data
-		  var damageChart = {
-			  "graphset": [{
-				"type": "bar",
-				"background-color": "#fff",
-				"title": {
-				  "text": "Total Damage Dealt",
-				  "background-color": "#33446A"
-				},
-				"scale-x": {
-					"values":"1:10:1"
-				},
-				"scale-y": {
-				  "label": {
-					"text": "Damage Dealt"
-				  }
-				},
-				"plotarea": {
-				  "background-color": "#fff"
-				},
-				"series": [{
-				  "values": damage,
-				  "background-color": "#33446A"
-				}, ]
-			  }]
-			}
-			//show chart
-		  zingchart.render({
-			id: "damageChartDiv",
-			data: damageChart,
-			height: 400,
-			width: "100%"
-		  });
-		}
-	  });
-
+	  getMatchHistory(summonerId, summonerLevel, profileIconId, rawSummonerName)
 	},
 	//display error message for invalid summoner names
 	error: function(data) {
@@ -167,4 +92,105 @@ function renderChart(rawSummonerName)
 	return chart;
 }
 	
- 
+function getChampion(championId, index) {
+  var name;
+  $.ajax({
+	url: '/apiCalls/champions?championId=' + championId,
+	success: function(data, status) {
+		//debugger;
+		champNames[index] = data.name;
+	}
+  });
+}
+
+function getMatchHistory(summonerId, summonerLevel, profileIconId, rawSummonerName) {
+	  //call to get match history 
+	  $.ajax({
+		url: '/apiCalls/matches?summonerId=' + summonerId,
+		success: function(data, status) {
+		  //on success, fill in charts
+		  var damage = [];
+		  var chartData = [];
+		  var championNames = [];
+		  var detailCharts = [];
+		  
+		  //total damage, physical damage, magic damage, true damage, champion ID
+		  for(i=0; i<10; i++) {
+			  chartData[i] = [];
+			  damage.push(data.games[i].stats.totalDamageDealtToChampions);
+			  chartData[i][0] = data.games[i].stats.totalDamageDealtToChampions;
+			  chartData[i][1] = data.games[i].stats.physicalDamageDealtToChampions;
+			  chartData[i][2] = data.games[i].stats.magicDamageDealtToChampions;
+			  chartData[i][3] = data.games[i].stats.trueDamageDealtToChampions;
+              getChampion(data.games[i].championId, i);
+			  detailCharts[i] = createDetailChart(chartData[i]);
+		  }	  
+		  
+		  //show detailed charts
+		  $("#matchTabs").children(".tab-pane").each(function(index,value) {
+			var currentDiv = this.firstElementChild.id
+			if(index != 0) {
+				zingchart.render({
+					id: currentDiv,
+					data: detailCharts[index-1],
+					height: 400,
+					width: "100%"
+				  });
+				 }
+	      });
+
+		  //fill info
+		  $('.infoContainer span').html("Summoner Name: " + rawSummonerName + 
+		  "<br>Summoner Level: " + summonerLevel + 
+		  "<br>" + "<img src=\"https://ddragon.leagueoflegends.com/cdn/4.21.5/img/profileicon/" + 
+		  profileIconId +".png\">" );
+		  
+		  //empty chart div
+		  $('.chartContainer span').text('');
+		  
+		  //populate damage chart data
+		  var damageChart = {
+			  "graphset": [{
+				"type": "bar",
+				"background-color": "#fff",
+				"title": {
+				  "text": "Total Damage Dealt",
+				  "background-color": "#33446A"
+				},
+				"scale-x": {
+					"values":"1:10:1"
+				},
+				"scale-y": {
+				  "label": {
+					"text": "Damage Dealt"
+				  }
+				},
+				"plotarea": {
+				  "background-color": "#fff"
+				},
+				"series": [{
+				  "values": damage,
+				  "background-color": "#33446A"
+				}, ]
+			  }]
+			}
+			//show chart
+		  zingchart.render({
+			id: "damageChartDiv",
+			data: damageChart,
+			height: 400,
+			width: "100%"
+		  });
+		}
+	  });
+}
+
+ /** $.ajax({
+	url: '/apiCalls/challengers',
+	success: function(data, status) {
+	  //fill dropdown
+	  $("#challengerDropdown li a").each(function(index,value) {
+		  $(this).text(data.entries[index].playerOrTeamName);
+	  });
+    }
+  });**/

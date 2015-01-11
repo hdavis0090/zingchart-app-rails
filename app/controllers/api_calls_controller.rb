@@ -21,7 +21,13 @@ class ApiCallsController < ApplicationController
 		url = "https://na.api.pvp.net/api/lol/static-data/na/v1.2/versions?api_key=#{ENV['KEY']}"
 		apiCall(url)
 	end
-	
+
+    def getChampIDs
+	  championId = params['championId']
+	  url = "https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/#{championId}?champData=all&api_key=#{ENV['KEY']}"
+	  apiCall(url)
+    end
+
 	private
 	
 	def apiCall(url)
