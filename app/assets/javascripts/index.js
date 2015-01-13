@@ -1,5 +1,5 @@
 
-var champNames = new Array(10);
+var champNames = [];
 $(document).ready(function() {
   //hide error
   $(".alert").css("opacity", "0");
@@ -32,7 +32,7 @@ $(document).ready(function() {
 	  if(index == 0) {
 		$(".matchDetails").text('');
 	  } else {
-	    $(".matchDetails").text(champNames[index - 1]);
+	    $(".matchDetails").text("Champion: " + champNames[index - 1]);
 	  }
   });
 	  
@@ -97,7 +97,6 @@ function getChampion(championId, index) {
   $.ajax({
 	url: '/apiCalls/champions?championId=' + championId,
 	success: function(data, status) {
-		//debugger;
 		champNames[index] = data.name;
 	}
   });
