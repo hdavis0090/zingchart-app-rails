@@ -112,6 +112,9 @@ function getMatchHistory(summonerId, summonerLevel, profileIconId, rawSummonerNa
 		  var chartData = [];
 		  var championNames = [];
 		  var detailCharts = [];
+		  var chartParent = $('.chartContainer');
+		  var chartHeight = chartParent.height();
+		  var chartWidth = chartParent.width();
 		  
 		  //total damage, physical damage, magic damage, true damage, champion ID
 		  for(i=0; i<10; i++) {
@@ -132,8 +135,8 @@ function getMatchHistory(summonerId, summonerLevel, profileIconId, rawSummonerNa
 				zingchart.render({
 					id: currentDiv,
 					data: detailCharts[index-1],
-					height: 400,
-					width: "100%"
+					height: chartHeight,
+					width: chartWidth
 				  });
 				 }
 	      });
@@ -177,8 +180,8 @@ function getMatchHistory(summonerId, summonerLevel, profileIconId, rawSummonerNa
 		  zingchart.render({
 			id: "damageChartDiv",
 			data: damageChart,
-			height: 400,
-			width: "100%"
+			height: chartHeight,
+			width: chartWidth
 		  });
 		}
 	  });
